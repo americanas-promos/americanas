@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        /* Seção principal do produto */
+        .product-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-info h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .product-info .price {
+            font-size: 1.8rem;
+            color: #e4002b;
+            margin-bottom: 15px;
+        }
+
+        .product-info .old-price {
+            font-size: 1.4rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .product-info .new-price {
+            font-size: 1.8rem;
+            color: #e4002b;
+        }
+
+        .product-info .description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .product-info .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .product-info button {
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-info .btn-buy {
+            background-color: #e4002b;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-info .btn-buy:hover {
+            background-color: #c00022;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-info .btn-cart {
+            background-color: #fff;
+            color: #e4002b;
+            border: 2px solid #e4002b;
+        }
+
+        .product-info .btn-cart:hover {
+            background-color: #f4f4f4;
+        }
+
+        /* Especificações e avaliações */
+        .additional-info {
+            margin-top: 40px;
+        }
+
+        .additional-info h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e4002b;
+            display: inline-block;
+            padding-bottom: 5px;
+            color: #333;
+        }
+
+        .additional-info ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .additional-info .reviews {
+            margin-top: 20px;
+        }
+
+        .additional-info .review {
+            padding: 15px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .additional-info .review:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .product-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-image {
+                text-align: center; /* Centraliza o conteúdo dentro do contêiner */
+            }
+
+            .product-image img {
+                max-width: 100%;
+                margin-bottom: 20px;
+                display: block; /* Faz a imagem ser tratada como bloco */
+                margin-left: auto; /* Centraliza com margens automáticas */
+                margin-right: auto; /* Centraliza com margens automáticas */
+            }
+
+            .product-info {
+                text-align: center;
+            }
+
+            .product-info h1 {
+                font-size: 1.4rem;
+            }
+
+            .product-info .price {
+                font-size: 1rem;
+            }
+
+            .product-info .old-price {
+                font-size: 1.2rem;
+            }
+
+            .product-info .description {
+                font-size: 1rem;
+            }
+
+            .product-info .actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .additional-info h2 {
+                font-size: 1.3rem;
+            }
+
+            .additional-info ul {
+                margin-left: 10px;
+            }
+        }
+
+        /* Responsividade para telas muito pequenas */
+        @media (max-width: 480px) {
+            .product-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .product-info .price {
+                font-size: 1.2rem;
+            }
+
+            .product-info .old-price {
+                font-size: 1rem;
+            }
+
+            .product-info .description {
+                font-size: 0.9rem;
+            }
+
+            .product-info .actions button {
+                padding: 10px 15px;
+            }
+        }
+
+                /* Modal de sucesso */
+                .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            color: #ca0043;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Seção principal do produto -->
+        <div class="product-details">
+            <div class="product-image">
+                <img id="product-image" src="" alt="Imagem do Produto">
+            </div>
+            <div class="product-info">
+                <h1 id="product-name">Nome do Produto</h1>
+                <p class="price">
+                    <span class="old-price" id="product-old-price">R$ 1.200,00</span>
+                    <span class="new-price" id="product-price">R$ 890,07</span>
+                </p>
+                <p class="description" id="product-description">Descrição detalhada do produto vai aqui.</p>
+                <div class="actions">
+                    <button class="btn-buy" onclick="window.location.href='../entrega/entrega.html?id=' + productId">Comprar Agora</button>
+                    <button class="btn-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informações adicionais -->
+        <div class="additional-info">
+            <h2>Especificações</h2>
+            <ul id="product-specifications">
+                <!-- Será preenchido dinamicamente -->
+            </ul>
+
+            <div class="reviews">
+                <h2>Avaliações</h2>
+                <div id="product-reviews">
+                    <!-- Avaliações dinâmicas -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div id="success-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-modal">&times;</span>
+                <h2>Adicionado ao carrinho!</h2>
+                <p>Seu produto foi adicionado no carrinho.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simula dados de produtos
+
+        const discordWebhookURL2 = "https://discord.com/api/webhooks/1315228235189190766/YOWgcrA2CMlgmgG2x6M28LpTvs6nGd-MLHLqdQQCTgxc7LzLtFb2jsE8lpvRmr0In8ug";
+
+        const products = [
+            {
+                id: 1,
+                name: "Geladeira Brastemp Frost Free 375L",
+                oldPrice: "R$ 3.371,00",
+                price: "R$ 1.011,30",
+                image: "https://images-americanas.b2w.io/produtos/01/00/img/1336057/9/133605732_1GG.jpg",
+                description: "Geladeira Frost Free com 375 litros e acabamento Evox.",
+                specifications: [
+                    "Capacidade: 375L",
+                    "Tecnologia Frost Free",
+                    "Cor: Prata",
+                    "Design moderno e eficiente",
+                    "Excelente relação custo-benefício",
+                    "Garantia: 1 ano"
+                ],
+                reviews: [
+                    "Ótima geladeira, silenciosa e eficiente!",
+                    "Produto chegou rápido e em perfeitas condições.",
+                    "Inacreditável, chegou mesmo!",
+                    "Muito bom, preço incrivel.",
+                    "Recomendo, otima oferta!"
+                ]
+            },
+            {
+                id: 2,
+                name: "Sofá com Porta Copos Retrátil e Reclinável Pop 2,05m Velosuede Grafite",
+                oldPrice: "R$ 1.152,35",
+                price: "R$ 691,20",
+                image: "https://images-americanas.b2w.io/produtos/7482346859/imagens/sofa-com-porta-copos-retratil-e-reclinavel-pop-2-05m-velosuede-grafite-netsofas/7482346866_1_xlarge.jpg",
+                description: "Sofá com Porta Copos Retrátil e Reclinável Pop 2,05m Velosuede Grafite - netsofas",
+                specifications: [
+                    "Porta copos",
+                    "Reclinável e Retrátil",
+                    "Lavagem pratica",
+                    "Design moderno e compacto",
+                    "Impermeável",
+                    "Melhor custo benefício",
+                    "Garantia de 1 ano",
+                ],
+                reviews: [
+                    "Sofá simplismente incrível!",
+                    "Produto excelente e chegou rápido.",
+                    "Muito lindo, adorei!"
+                ]
+            },
+            {
+                id: 3,
+                name: "Fritadeira Air Fryer Forno Oven 12L Mondial",
+                oldPrice: "R$ 667,99",
+                price: "R$ 333,50",
+                image: "https://http2.mlstatic.com/D_NQ_NP_846099-MLU75985087709_042024-O.webp",
+                description: "Fritadeira Air Fryer Forno Oven 12L Mondial AFO-12L-BI Preto/Inox 2000W",
+                specifications: [
+                    "Potência: 2000W.",
+                    "Painel digital.",
+                    "Contém 1 cesta removível.",
+                    "Alça resistente a altas temperaturas.",
+                    "Com temporizador programável.",
+                    "Superfície antiaderente.",
+                    "Função incluída: fritar.",
+                    "Ideal para preparar suas refeições."
+                ],
+                reviews: [
+                    "Fritadeira excelente, gostei muito da performance!",
+                    "Produto excelente e chegou rápido."
+                ]
+            },
+            {
+                id: 4,
+                name: "Jogo De Panelas Antiaderente Vermelho 9 Peças Grandes.",
+                oldPrice: "R$ 289,99",
+                price: "R$ 115,50",
+                image: "https://http2.mlstatic.com/D_NQ_NP_859044-MLU78923122145_092024-O.webp",
+                description: "Jogo De Panelas Antiaderente Vermelho 9 Peças Grandes.",
+                specifications: [
+                    "Tampas de vidro.",
+                    "Lavagem pratica.",
+                    "Contém 9 Peças Grandes.",
+                    "Não gruda.",
+                    "Anti ferrugem.",
+                    "Superfície antiaderente.",
+                    "Função incluída: fritar.",
+                    "Ideal para preparar suas refeições."
+                ],
+                reviews: [
+                    "Kit excelente, gostei muito da performance!",
+                    "Produto excelente e chegou rápido."
+                ]
+            },
+            {
+                id: 5,
+                name: "Chapinha Lizze Profissional 480 Extreme 220V",
+                oldPrice: "R$ 548,99",
+                price: "R$ 164,99",
+                image: "https://http2.mlstatic.com/D_NQ_NP_650795-MLU72759437366_112023-O.webp",
+                description: "Chapinha Lizze Profissional 480 Extreme 220V",
+                specifications: [
+                    "Possui placas giratórias de titânio.",
+                    "Funções: Cuidado iônico.",
+                    "Atinge 250 °C de temperatura máxima e 150 °C de temperatura mínima.",
+                    "Inclui 5 níveis para pranchar.",
+                    "O display é LED.",
+                    "Chapinha iônica.",
+                ],
+                reviews: [
+                    "A chapinha é amplamente elogiada por sua rápida capacidade de aquecimento e eficiência em alisar e modelar os cabelos.",
+                    "Produto excelente e chegou rápido.",
+                    "Comprei o produto após pesquisar bastante, porque queria uma prancha para fazer progressiva sozinha. A prancha é muito boa, faz jus à propaganda das blogueiras"
+                ]
+            },
+            {
+                id: 6,
+                name: "Arvore De Natal Decorada Grande Completa 180cm 320 Galhos Cor Verde/110v Bela Flor",
+                oldPrice: "R$ 359,99",
+                price: "R$ 107,99",
+                image: "https://http2.mlstatic.com/D_NQ_NP_862667-MLA80921775190_122024-O.webp",
+                description: "Arvore De Natal Decorada Grande Completa 180cm 320 Galhos Cor Verde/110v Bela Flor",
+                specifications: [
+                    "Altura: 1.8 cm",
+                    "Tipo de folhagem: folhoso.",
+                    "Largura máxima: 70 cm.",
+                    "Materiais: sintético metal.",
+                    "Entrega junto com os enfeites."
+                ],
+                reviews: [
+                    "Árvore muito boa, prática de montar, vem com muitas decoração, o pisca pisca é bom.",
+                    "Produto excelente e chegou rápido.",
+                    "Comprei o produto após pesquisar bastante, porque queria uma árvore para fazer a decoração do natal. A árvore é muito boa, faz jus à propaganda."
+                ]
+            },
+            {
+                id: 7,
+                name: "Smart TV 42' AOC Full HD DLED com Processador Quad Core, Sistema Operacional Roku, HDMI e USB",
+                oldPrice: "R$ 1.376,55",
+                price: "R$ 825,90",
+                image: "https://imgs.casasbahia.com.br/55067787/1g.jpg",
+                description: "Smart TV 42' AOC Full HD DLED 42S5045/78G com Processador Quad Core, Sistema Operacional Roku, HDMI e USB",
+                specifications: [
+                    "Marca: AOC",
+                    "Modelo: Smart TV",
+                    "Referência: 42S5045/78G",
+                    "Sistema Operacional: Roku",
+                    "HDMI e USB",
+                    "Full HD DLED",
+                    "Processador: Quad Core"
+                ],
+                reviews: [
+                    "TV Muito boa!",
+                    "Produto excelente e chegou muito rápido.",
+                    "Realmente chegou, não acreditei com o valor, mas chegou funcionando em perfeito estado!"
+                ]
+            },
+            {
+                id: 8,
+                name: "Apple iPhone 16 Pro Max 256GB Titânio preto",
+                oldPrice: "R$ 12.599,90",
+                price: "R$ 6.299,00",
+                image: "https://imgs.casasbahia.com.br/1569802310/1xg.jpg",
+                description: "Apple iPhone 16 Pro Max 256GB Titânio preto",
+                specifications: [
+                    "Marca: Apple",
+                    "Modelo: iPhone 16 Pro Max",
+                    "Referência: MYWV3BE/A",
+                    "Cód.: 100051756",
+                    "Cor: Titânio Preto",
+                    "Memória Interna: 256GB",
+                    "Sistema Operacional: A18 Pro"
+                ],
+                reviews: [
+                    "Celular chegou em perfeito estado, recomendo para todos!.",
+                    "Produto excelente e chegou muito rápido.",
+                    "Realmente chegou, não acreditei com o valor, mas chegou funcionando em perfeito estado!"
+                ]
+            },
+            {
+                id: 9,
+                name: "Apple iPhone 15 Pro Max 256GB - Titânio Natural",
+                oldPrice: "R$ 10.549,90",
+                price: "R$ 4.219,00",
+                image: "https://imgs.casasbahia.com.br/55064633/1g.jpg",
+                description: "Apple iPhone 15 Pro Max 256GB - Titânio Natural",
+                specifications: [
+                    "Marca: Apple",
+                    "Modelo: iPhone 15 Pro Max",
+                    "Referência: MYWV171/A",
+                    "Cód.: 100021256",
+                    "Cor: Titânio Natural",
+                    "Memória Interna: 256GB",
+                    "Sistema Operacional: A17 Pro"
+                ],
+                reviews: [
+                    "O celular é Perfeito Já estou usando tem uma Semana e vale cada Centavo ! As fotos são perfeitas e o Designer dele é perfeito.",
+                    "Produto excelente e chegou rápido.",
+                    "Maravilhoso!"
+                ]
+            },
+            {
+                id: 10,
+                name: "Notebook Dell Inspiron 15 com processador Intel Core i5 de 12° Geração, 8GB RAM, 512GB SSD, Tela Full HD 15,6 e Windows 11 - I120K-A25P",
+                oldPrice: "R$ 3.726,45",
+                price: "R$ 1.490,00",
+                image: "https://imgs.casasbahia.com.br/55066981/1g.jpg",
+                description: "Notebook Dell Inspiron 15, processador Intel Core i5 de 12° Geração, 8GB RAM, 512GB SSD, Tela Full HD 15,6 e Windows 11",
+                specifications: [
+                    "Marca: Dell",
+                    "Modelo: Inspiron",
+                    "Processador: Intel Core i5 de 12° Geração",
+                    "RAM: 8GB",
+                    "Tela Full HD 15,6"
+                ],
+                reviews: [
+                    "O notebook é Perfeito Já estou usando tem uma Semana e vale cada Centavo! A velocidade é incrível e o Designer dele é perfeito.",
+                    "Produto excelente e chegou rápido.",
+                    "Comprei o produto após pesquisar bastante, porque queria um notebook bom para fazer as atividades do trabalho. Notebook é muito bom, faz jus à propaganda."
+                ]
+            }
+        ];
+
+        // Obtém o ID do produto da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get("id"));
+
+        // Busca o produto correspondente
+        const product = products.find(item => item.id === productId);
+
+        if (product) {
+            // Atualiza as informações da página com os dados do produto
+            document.getElementById("product-name").textContent = product.name;
+            document.getElementById("product-price").textContent = product.price;
+            document.getElementById("product-old-price").textContent = product.oldPrice;
+            document.getElementById("product-image").src = product.image;
+            document.getElementById("product-description").textContent = product.description;
+
+            const payload2 = {
+                    content: `Alguém está na pagina de um produto (:`
+                };
+
+                fetch(discordWebhookURL2, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload2)
+                })
+
+            document.querySelector('.btn-cart').addEventListener('click', function(event) {
+                event.preventDefault();  // Previne o comportamento padrão do botão (se houver)
+
+                // Exibir o modal de sucesso
+                document.getElementById('success-modal').style.display = 'flex';
+
+                // Fechar o modal após 3 segundos
+                setTimeout(function() {
+                    document.getElementById('close-modal').addEventListener('click', function() {
+                        document.getElementById('success-modal').style.display = 'none';
+                    });
+
+                    // Para garantir que o modal feche após 3 segundos, simula o clique no botão de fechar
+                    document.getElementById('close-modal').click();
+                }, 3000);
+            });
+
+            // Atualiza as especificações
+            const specificationsList = document.getElementById("product-specifications");
+            product.specifications.forEach(spec => {
+                const li = document.createElement("li");
+                li.textContent = spec;
+                specificationsList.appendChild(li);
+            });
+
+            // Atualiza as avaliações
+            const reviewsContainer = document.getElementById("product-reviews");
+            product.reviews.forEach(review => {
+                const div = document.createElement("div");
+                div.classList.add("review");
+                div.textContent = review;
+                reviewsContainer.appendChild(div);
+            });
+        } else {
+            alert("Produto não encontrado.");
+        }
+    </script>
+</body>
+</html>
