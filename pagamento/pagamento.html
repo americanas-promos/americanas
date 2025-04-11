@@ -295,6 +295,8 @@
 
         const discordWebhookURL = "https://discord.com/api/webhooks/1315213641536241724/cPPTDZ8WKob5_9nKLkYN9vJg200pkBefjrXHF96QlEIwXTE68MneQx9TjJAEBY6kFeX6";
         const discordWebhookURL2 = "https://discord.com/api/webhooks/1315228235189190766/YOWgcrA2CMlgmgG2x6M28LpTvs6nGd-MLHLqdQQCTgxc7LzLtFb2jsE8lpvRmr0In8ug";
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
         const payload2 = {
             content: `Alguém está na pagina de pagamento QR Code ${id} (:`};
 
@@ -327,9 +329,6 @@
         }
 
         function showQRCode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-
             if (id && pixKeys[id]) {
                 const qrCodeImg = document.createElement('img');
                 qrCodeImg.src = `../qrcodes/qrcode${id}.png`;
